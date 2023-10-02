@@ -14,3 +14,9 @@ _book
 *.epub
 *.mobi
 *.pdf
+
+# Book build output
+book/
+
+# Cargo output
+**/target/

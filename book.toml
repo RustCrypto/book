@@ -1,0 +1,12 @@
+[book]
+authors = ["RustCrypto Organization"]
+language = "en"
+multilingual = false
+title = "The RustCrypto Book"
+description = "Reference manual for the RustCrypto project"
+
+[rust]
+edition = "2021"
+
+# [output.html.playground]
+# editable = true
