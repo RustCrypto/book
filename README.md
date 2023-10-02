@@ -2,7 +2,7 @@
 
 Reference manual for the RustCrypto project, implemented as a MDBook \[WIP\].
 
-You can read the book at <https://RustCrypto.github.io/book/>.
+You can read the book at <https://rustcrypto.org/>.
 
 ## Contributing
 
