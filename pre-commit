@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# check mdbook
+mdbook build
+
+# apply formatting
+mdformat -h > /dev/null || echo 'You may need to install mdformat: `pip install mdformat-gfm`'
+mdformat --wrap 100 .
+
+cargo fmt --manifest-path=test-book/Cargo.toml
