@@ -11,6 +11,7 @@ fn check_glossary_sort() {
     text.lines()
         .enumerate()
         .filter(|(_, line)| line.starts_with("## "))
+        .filter(|(_, line)| !line.contains("sort:ignore"))
         .for_each(|(idx, line)| {
             linenums.push(idx);
             headings.push(line.strip_prefix("## ").unwrap());
