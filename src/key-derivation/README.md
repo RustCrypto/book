@@ -4,7 +4,7 @@
 output of specified length. This output can then be used, for example, as the key for an encryption
 algorithm.
 
-Password hashing functions are a subset of key derivation functions; see
+Password hashing functions are a related concept to key derivation functions; see
 [Password Hashing](hashing-password.md) for more information on those.
 
 <!-- this page will contain more about non-password KDFs (HKDF, concat) -->
