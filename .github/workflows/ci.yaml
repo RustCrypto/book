@@ -1,0 +1,64 @@
+on:
+  push:
+    branches:
+    - master
+  pull_request:
+
+env:
+  MDBOOK_URL: https://github.com/rust-lang/mdBook/releases/download/v0.4.35/mdbook-v0.4.35-x86_64-unknown-linux-gnu.tar.gz
+  RUSTFLAGS: "-Dwarnings"
+
+jobs:
+  check_book:
+    name: Check mdbook
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          mkdir bin
+          curl -sSL "$MDBOOK_URL" | tar -xz --directory=bin
+      - run: bin/mdbook build
+
+  formatting:
+    name: Check mdformat
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: pip install mdformat-gfm
+      - run: mdformat --check --wrap 100 .
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test Rust code
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: |
+          cd test-book
+          cargo check --all-targets
+          cargo test
+
+  deploy:
+    name: Deploy book
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          mkdir bin
+          curl -sSL "$MDBOOK_URL" | tar -xz --directory=bin
+      - run: |
+          bin/mdbook build
+          git worktree add gh-pages
+          git config user.name "Deploy from CI"
+          git config user.email ""
+          cd gh-pages
+          # Delete the ref to avoid keeping history.
+          git update-ref -d refs/heads/gh-pages
+          rm -rf *
+          mv ../book/* .
+          git add .
+          git commit -m "Deploy $GITHUB_SHA to gh-pages"
+          git push --force --set-upstream origin gh-pages
