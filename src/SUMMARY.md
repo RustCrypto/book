@@ -4,7 +4,7 @@
 
 - [Data Hashing](hashing-data/README.md)
 - [Key Derivation](key-derivation/README.md)
-  - [Password Hashing](key-derivation/hashing-password.md)
+- [Password Hashing](key-derivation/hashing-password.md)
 - [Message Authentication](message-authentication/README.md)
 - [Digital Signing](signing/README.md)
 - [Asymmetric Encryption](encryption-asymmetric/README.md)
